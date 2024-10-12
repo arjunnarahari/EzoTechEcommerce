@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">EzoTechEcommerce</string>
+    <string name="prd_list_toolbar_header">Product List</string>
+    <string name="prd_details_toolbar_header">Product Details</string>
+    <string name="cart_toolbar_header">Cart</string>
+    <string name="btn_add">Add</string>
+    <string name="view_cart">View cart</string>
+    <string name="txt_with_rupee_symbol">₹ </string>
+    <string name="filter">Filter</string>
+    <string name="view_bill"><u>View bill</u></string>
+    <string name="bill_details">Bill details</string>
+    <string name="total_items">Total items</string>
+    <string name="estimated_payable">Estimated Payable</string>
+    <string name="empty_cart">No items found in cart</string>
+    <string name="remove_product">Remove Product</string>
+    <string name="no_results">No Results Found</string>
+    <string name="checkout">Checkout</string>
+    <string name="are_you_sure_remove_product">Are you sure you want to remove product?</string>
+    <string name="no_internet_msg">Please check your internet connection and try again later</string>
+    <string name="product_added">Product added</string>
+</resources>
