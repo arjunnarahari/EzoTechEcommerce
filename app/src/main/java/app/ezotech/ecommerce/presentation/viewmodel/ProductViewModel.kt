@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import app.ezotech.ecommerce.data.model.Category
 import app.ezotech.ecommerce.data.model.ProductItem
 import app.ezotech.ecommerce.data.repository.datasource.local.entity.CartProduct
 import app.ezotech.ecommerce.data.utils.MessageConstants
@@ -39,8 +40,8 @@ class ProductViewModel @Inject constructor(
     private val productListMutableLiveData = MutableLiveData<List<ProductItem?>>()
     val productListLivedata: LiveData<List<ProductItem?>> get() = productListMutableLiveData
 
-    private val categoryListMutableLiveData = MutableLiveData<List<String?>>()
-    val categoryListLivedata: LiveData<List<String?>> get() = categoryListMutableLiveData
+    private val categoryListMutableLiveData = MutableLiveData<List<Category?>>()
+    val categoryListLivedata: LiveData<List<Category?>> get() = categoryListMutableLiveData
 
     private val productDetailsMutableLiveData = MutableLiveData<ProductItem?>()
     val productDetailsLiveData: LiveData<ProductItem?> get() = productDetailsMutableLiveData
@@ -51,17 +52,20 @@ class ProductViewModel @Inject constructor(
     private val cartTotalValueMutableLiveData = MutableLiveData<Double>()
     val cartTotalValueLiveData: LiveData<Double> get() = cartTotalValueMutableLiveData
 
+    private val localCategorySelectedMutableLiveData = MutableLiveData<String>("")
+    val localCategorySelectedLiveData: LiveData<String?> get() = localCategorySelectedMutableLiveData
+
     init{
         getCartCountAndTotalValue()
     }
 
     fun getCategoryList(){
         viewModelScope.launch(Dispatchers.IO) {
-            val list = ArrayList<String>()
-            list.add("electronics")
-            list.add("jewelery")
-            list.add("men's clothing")
-            list.add("women's clothing")
+            val list = ArrayList<Category>()
+            list.add(Category("electronics",false))
+            list.add(Category("jewelery",false))
+            list.add(Category("men's clothing",false))
+            list.add(Category("women's clothing",false))
             categoryListMutableLiveData.postValue(list)
         }
     }
@@ -279,6 +283,35 @@ class ProductViewModel @Inject constructor(
                 updateList()
             }
             getCartCountAndTotalValue()
+        }
+    }
+
+    fun setFilterRadioSelection(selectedText:String){
+        viewModelScope.launch(Dispatchers.IO) {
+            val list = categoryListMutableLiveData.value!!
+            for(item in list){
+                item?.isSelected = false
+                if (item != null) {
+                    if(selectedText == item.categoryType){
+                        item.isSelected = true
+                    }
+                }
+            }
+            categoryListMutableLiveData.postValue(list)
+            localCategorySelectedMutableLiveData.postValue(selectedText)
+        }
+    }
+
+    fun clearFilterSelection(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val list = categoryListMutableLiveData.value!!
+            for(item in list){
+                if(item?.isSelected == true){
+                    item.isSelected = false
+                }
+            }
+            categoryListMutableLiveData.postValue(list)
+            localCategorySelectedMutableLiveData.postValue("")
         }
     }
 }

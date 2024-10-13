@@ -1,17 +1,19 @@
 package app.ezotech.ecommerce.presentation.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import app.ezotech.ecommerce.R
+import app.ezotech.ecommerce.data.model.Category
 import app.ezotech.ecommerce.databinding.FilterListItemBinding
 import app.ezotech.ecommerce.presentation.viewmodel.ProductViewModel
 
 
 class CategoryListRecyclerViewAdapter(
-    var list: List<String>?,
-    var viewModel: ProductViewModel,
+    var list: List<Category>?,
+    var viewModel: ProductViewModel
 ) : RecyclerView.Adapter<CategoryListRecyclerViewAdapter.CategoryListViewHolder>() {
 
 
@@ -37,27 +39,9 @@ class CategoryListRecyclerViewAdapter(
         holder.binding.item = item
         holder.binding.viewModel = viewModel
 
-
-        /*holder.binding.clItem.setOnClickListener {
-            holder.binding.clItem.context.startActivity(
-                Intent(
-                    holder.binding.clItem.context,
-                    ProductDetailsActivity::class.java
-                ).putExtra(
-                    "id", item?.id
-                )
-            )
+        holder.binding.radioCategory.setOnClickListener {
+            viewModel.setFilterRadioSelection(holder.binding.radioCategory.text.toString())
         }
-
-        holder.binding.btnAdd.setOnClickListener {
-            viewModel.addProductToCart(item!!,"PRD_LIST")
-            Toast.makeText(
-                holder.binding.btnAdd.context,
-                holder.binding.btnAdd.context.getString(R.string.product_added),
-                Toast.LENGTH_LONG
-            ).show()
-        }*/
-
     }
 
     override fun getItemCount(): Int {

@@ -3,6 +3,7 @@ package app.ezotech.ecommerce.presentation.bindingadapter
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import app.ezotech.ecommerce.data.model.Category
 import app.ezotech.ecommerce.data.model.ProductItem
 import app.ezotech.ecommerce.presentation.adapter.CartListRecyclerViewAdapter
 import app.ezotech.ecommerce.presentation.adapter.CategoryListRecyclerViewAdapter
@@ -14,7 +15,7 @@ import com.bumptech.glide.Glide
 @BindingAdapter("setCategoryList", "viewModel")
 fun setCategoryList(
     view: RecyclerView,
-    list: List<String>?,
+    list: List<Category>?,
     viewModel: ProductViewModel
 ) {
     view.adapter?.run {

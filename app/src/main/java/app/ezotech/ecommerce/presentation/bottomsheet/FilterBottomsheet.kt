@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import app.ezotech.ecommerce.R
 import app.ezotech.ecommerce.databinding.FilterBottomsheetBinding
@@ -56,7 +57,7 @@ class FilterBottomsheet(var viewModel: ProductViewModel) : BottomSheetDialogFrag
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         dialog = BottomSheetDialog(requireContext(), theme)
 
-        (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_EXPANDED
         (dialog as BottomSheetDialog).behavior.isDraggable = true
         return dialog
     }
@@ -73,16 +74,37 @@ class FilterBottomsheet(var viewModel: ProductViewModel) : BottomSheetDialogFrag
         val displayMetrics = context?.resources?.displayMetrics
         //contex.defaultDisplay.getMetrics(displayMetrics)
         val displayWidth = displayMetrics?.widthPixels
+        val displayheight = displayMetrics?.heightPixels
 
 
         //  binding.parentPaymentModeCouponAppliedBottomSheet.layoutParams.width = 294.toPx
-        if (displayWidth != null) {
-            binding.parentBottomSheet.layoutParams.height =  (displayWidth * 0.9f).toInt()
+        if (displayheight != null) {
+            binding.parentBottomSheet.layoutParams.height =  (displayheight * 0.9f).toInt()
         }
     }
 
     private fun setEventListeners() {
         binding.imgClose.setOnClickListener { closeBottomSheet() }
+
+        binding.btnApply.setOnClickListener {
+            if(!viewModel.localCategorySelectedLiveData.value!!.isNullOrEmpty()) {
+                viewModel.getProductsListByCategory(viewModel.localCategorySelectedLiveData.value!!)
+                closeBottomSheet()
+            }
+            else{
+                Toast.makeText(
+                    binding.btnApply.context,
+                    binding.btnApply.context.getString(R.string.validation_filter),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        }
+
+        binding.btnClear.setOnClickListener {
+            viewModel.clearFilterSelection()
+            viewModel.getProductsList()
+            closeBottomSheet()
+        }
     }
 
     override fun getTheme(): Int {

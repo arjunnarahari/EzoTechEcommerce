@@ -1,4 +1,6 @@
 package app.ezotech.ecommerce.data.model
 
-class Category {
-}
+data class Category(
+    var categoryType: String? = "",
+    var isSelected: Boolean = false
+)

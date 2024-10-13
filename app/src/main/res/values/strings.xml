@@ -20,4 +20,5 @@
     <string name="are_you_sure_remove_product">Are you sure you want to remove product?</string>
     <string name="no_internet_msg">Please check your internet connection and try again later</string>
     <string name="product_added">Product added</string>
+    <string name="validation_filter">Please select category</string>
 </resources>
