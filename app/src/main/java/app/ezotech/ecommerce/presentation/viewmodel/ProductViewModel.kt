@@ -39,6 +39,9 @@ class ProductViewModel @Inject constructor(
     private val productListMutableLiveData = MutableLiveData<List<ProductItem?>>()
     val productListLivedata: LiveData<List<ProductItem?>> get() = productListMutableLiveData
 
+    private val categoryListMutableLiveData = MutableLiveData<List<String?>>()
+    val categoryListLivedata: LiveData<List<String?>> get() = categoryListMutableLiveData
+
     private val productDetailsMutableLiveData = MutableLiveData<ProductItem?>()
     val productDetailsLiveData: LiveData<ProductItem?> get() = productDetailsMutableLiveData
 
@@ -50,6 +53,17 @@ class ProductViewModel @Inject constructor(
 
     init{
         getCartCountAndTotalValue()
+    }
+
+    fun getCategoryList(){
+        viewModelScope.launch(Dispatchers.IO) {
+            val list = ArrayList<String>()
+            list.add("electronics")
+            list.add("jewelery")
+            list.add("men's clothing")
+            list.add("women's clothing")
+            categoryListMutableLiveData.postValue(list)
+        }
     }
 
     /**
@@ -64,6 +78,46 @@ class ProductViewModel @Inject constructor(
             if (isNetworkAvailable(context)) {
                 try {
                     productListUseCase.getProductList()?.let {
+                        if (!it.isNullOrEmpty()) {
+                            for(item in it){
+                                val qty = localDbUseCase.getQtyOfItem(item!!.id)
+                                if(qty > 0){
+                                    item.qty = qty
+                                }
+                            }
+                            productListMutableLiveData.postValue(it)
+                        } else {
+                            showMessage.postValue(Event(MessageConstants.EMPTY_RESULTS))
+                        }
+                        getCartCountAndTotalValue()
+
+                        showLoader.postValue(false)
+                    }
+                } catch (ex: Exception) {
+                    Log.i("exception ::::", "" + ex.toString())
+                    showMessage.postValue(Event(MessageConstants.EMPTY_RESULTS))
+                    showLoader.postValue(false)
+                }
+
+            } else{
+                showMessage.postValue(Event(MessageConstants.NO_NETWORK))
+                showLoader.postValue(false)
+            }
+        }
+    }
+
+    /**
+     * This function is used to fetch the list of products
+     * check internet connection and fetch from API
+     * Show no results found text if the list is empty
+     * Show no internet toast if there is no internet connectivity
+     * **/
+    fun getProductsListByCategory(category:String) {
+        viewModelScope.launch(Dispatchers.IO) {
+            showLoader.postValue(true)
+            if (isNetworkAvailable(context)) {
+                try {
+                    productListUseCase.getProductListByCategory(category)?.let {
                         if (!it.isNullOrEmpty()) {
                             for(item in it){
                                 val qty = localDbUseCase.getQtyOfItem(item!!.id)

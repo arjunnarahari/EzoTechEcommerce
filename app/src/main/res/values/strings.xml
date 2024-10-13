@@ -7,6 +7,8 @@
     <string name="view_cart">View cart</string>
     <string name="txt_with_rupee_symbol">₹ </string>
     <string name="filter">Filter</string>
+    <string name="apply">Apply</string>
+    <string name="clear">Clear</string>
     <string name="view_bill"><u>View bill</u></string>
     <string name="bill_details">Bill details</string>
     <string name="total_items">Total items</string>

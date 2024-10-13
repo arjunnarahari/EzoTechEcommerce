@@ -13,6 +13,10 @@ class ProductListRemoteDataSourceImpl @Inject constructor(private val apiInterfa
         return apiInterface.getProductList()
     }
 
+    override suspend fun getProductListByCategory(category: String): Response<List<ProductItem?>> {
+        return apiInterface.getProductListByCategory(category)
+    }
+
     override suspend fun getProductDetails(id: Int): Response<ProductItem?> {
         return apiInterface.getProductDetails(id)
     }

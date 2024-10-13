@@ -12,6 +12,11 @@ interface ApiInterface {
     suspend fun getProductList(
     ): Response<List<ProductItem?>>
 
+    @GET(ApiEndpointConstants.FETCH_PRODUCT_BY_CATEGORIES)
+    suspend fun getProductListByCategory(
+        @Path(value="category", encoded=true) category : String
+    ): Response<List<ProductItem?>>
+
     @GET(ApiEndpointConstants.FETCH_PRODUCT_DETAILS)
     suspend fun getProductDetails(
         @Path(value="id", encoded=true) id : Int

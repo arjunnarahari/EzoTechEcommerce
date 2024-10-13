@@ -16,6 +16,12 @@ class ProductListRepositoryImpl @Inject constructor(private val productListRemot
         }
     }
 
+    override suspend fun getProductListByCategory(category: String): Resource<Response<List<ProductItem?>>> {
+        return safeApiCall {
+            productListRemoteDataSource.getProductListByCategory(category)
+        }
+    }
+
     override suspend fun getProductDetails(id: Int): Resource<Response<ProductItem?>> {
         return safeApiCall {
             productListRemoteDataSource.getProductDetails(id)

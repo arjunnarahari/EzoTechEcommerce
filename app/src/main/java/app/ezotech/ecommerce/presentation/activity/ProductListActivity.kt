@@ -11,6 +11,7 @@ import app.ezotech.ecommerce.R
 import app.ezotech.ecommerce.data.model.ProductItem
 import app.ezotech.ecommerce.data.utils.MessageConstants
 import app.ezotech.ecommerce.databinding.ActivityProductListBinding
+import app.ezotech.ecommerce.presentation.bottomsheet.FilterBottomsheet
 import app.ezotech.ecommerce.presentation.viewmodel.ProductViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -81,13 +82,23 @@ class ProductListActivity : AppCompatActivity() {
             startActivity(Intent(this,CartActivity::class.java))
         }
 
+        /**
+         * show filter bottomsheet
+         * **/
         binding.imgFilter.setOnClickListener {
-
+            val bundle = Bundle()
+//            bundle.putString("totalItems", viewModel.cartCountLiveData.value.toString())
+//            bundle.putString("totalEstimatedPayable", viewModel.cartTotalValueLiveData.value.toString())
+            val filterBottomsheet = FilterBottomsheet(viewModel)
+            filterBottomsheet.arguments = bundle
+            filterBottomsheet.isCancelable = true
+            filterBottomsheet.show(supportFragmentManager, "FilterBottomsheet")
         }
     }
 
     override fun onResume() {
         super.onResume()
         viewModel.getProductsList()
+        viewModel.getCategoryList()
     }
 }

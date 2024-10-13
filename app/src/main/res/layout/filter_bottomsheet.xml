@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent_bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/bg_bottomsheet_top_left_right_rounded"
-        android:paddingBottom="30dp">
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_bottomsheet_top_left_right_rounded">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/clTopHeader"
@@ -41,6 +42,67 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clBottomCartView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/color_blue"
+            android:visibility="@{viewModel.eventshowLoader ? View.GONE : (viewModel.cartCountLiveData > 0 ? View.VISIBLE : View.GONE)}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnApply"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/btn_view_cart_bg"
+                android:text="@string/apply"
+                android:textAllCaps="false"
+                android:textColor="@color/color_blue"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/btn_view_cart_bg"
+                android:text="@string/clear"
+                android:textAllCaps="false"
+                android:textColor="@color/color_blue"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginTop="20dp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:visibility="@{viewModel.categoryListLivedata.size() > 0 ? View.VISIBLE : View.GONE}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/clBottomCartView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clTopHeader"
+            app:setCategoryList="@{viewModel.categoryListLivedata}"
+            app:viewModel="@{viewModel}"
+            tools:itemCount="10"
+            tools:listitem="@layout/filter_list_item" />
 
 
 

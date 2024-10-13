@@ -14,6 +14,13 @@ class ProductListUseCase @Inject constructor(private val productListRepository: 
             else -> null
         }
 
+    suspend fun getProductListByCategory(category:String): List<ProductItem?>? =
+        when (val res = productListRepository.getProductListByCategory(category)) {
+            is Resource.Success -> res.value?.body()
+            is Resource.Failure -> null
+            else -> null
+        }
+
     suspend fun getProductDetails(id:Int): ProductItem? =
         when (val res = productListRepository.getProductDetails(id)) {
             is Resource.Success -> res.value?.body()

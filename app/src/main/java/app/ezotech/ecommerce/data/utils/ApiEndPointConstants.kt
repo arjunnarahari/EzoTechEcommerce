@@ -10,4 +10,5 @@ object ApiEndpointConstants {
 
     const val FETCH_PRODUCTS = "products"
     const val FETCH_PRODUCT_DETAILS = "products/{id}"
+    const val FETCH_PRODUCT_BY_CATEGORIES = "/products/category/{category}"
 }

@@ -5,10 +5,29 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import app.ezotech.ecommerce.data.model.ProductItem
 import app.ezotech.ecommerce.presentation.adapter.CartListRecyclerViewAdapter
+import app.ezotech.ecommerce.presentation.adapter.CategoryListRecyclerViewAdapter
 import app.ezotech.ecommerce.presentation.adapter.ProductListRecyclerviewAdapter
 import app.ezotech.ecommerce.presentation.viewmodel.CartViewModel
 import app.ezotech.ecommerce.presentation.viewmodel.ProductViewModel
 import com.bumptech.glide.Glide
+
+@BindingAdapter("setCategoryList", "viewModel")
+fun setCategoryList(
+    view: RecyclerView,
+    list: List<String>?,
+    viewModel: ProductViewModel
+) {
+    view.adapter?.run {
+        //notify
+        if (this is CategoryListRecyclerViewAdapter) {
+            this.list = list
+            this.viewModel = viewModel
+            this.notifyDataSetChanged()
+        }
+    } ?: run {
+        view.adapter = CategoryListRecyclerViewAdapter(list, viewModel)
+    }
+}
 
 @BindingAdapter("setProductList", "viewModel")
 fun setProductList(

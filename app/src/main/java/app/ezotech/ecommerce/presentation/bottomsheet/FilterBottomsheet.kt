@@ -6,30 +6,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import app.ezotech.ecommerce.R
-import app.ezotech.ecommerce.databinding.BottomsheetViewBillDetailsBinding
-import app.ezotech.ecommerce.presentation.viewmodel.CartViewModel
+import app.ezotech.ecommerce.databinding.FilterBottomsheetBinding
+import app.ezotech.ecommerce.presentation.viewmodel.ProductViewModel
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-class FilterBottomsheet : BottomSheetDialogFragment() {
+@AndroidEntryPoint
+class FilterBottomsheet(var viewModel: ProductViewModel) : BottomSheetDialogFragment() {
 
-    lateinit var viewModel: CartViewModel
-    private lateinit var binding: BottomsheetViewBillDetailsBinding
+    private lateinit var binding: FilterBottomsheetBinding
     private lateinit var dialog: BottomSheetDialog
-
-    fun newInstance(): ViewBillDetailsBottomsheet {
-        return ViewBillDetailsBottomsheet()
-    }
 
     /**
      * Set the style for bottomsheet
      * **/
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProvider(this)[CartViewModel::class.java]
     }
 
     /**
@@ -40,7 +35,7 @@ class FilterBottomsheet : BottomSheetDialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.bottomsheet_view_bill_details, container, false)
+        val view = inflater.inflate(R.layout.filter_bottomsheet, container, false)
         binding = DataBindingUtil.bind(view)!!
         return binding.root
     }
@@ -61,33 +56,32 @@ class FilterBottomsheet : BottomSheetDialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         dialog = BottomSheetDialog(requireContext(), theme)
 
-        dialog.setOnShowListener { it ->
-            val d = it as BottomSheetDialog
-            val bottomSheet = d.findViewById<View>(com.google.android.material.R.id.design_bottom_sheet)
-            bottomSheet?.let {
-                val behavior = BottomSheetBehavior.from(it)
-                behavior.state = BottomSheetBehavior.STATE_EXPANDED
-            }
-        }
+        (dialog as BottomSheetDialog).behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        (dialog as BottomSheetDialog).behavior.isDraggable = true
         return dialog
     }
 
-    private fun initView(){
+    private fun initView() {
 
         binding.let {
             it.viewModel = viewModel
             it.lifecycleOwner = activity
         }
 
-        val bundle = arguments?:
-        return
+        val bundle = arguments ?: return
 
-        binding.totalItems = bundle.getString("totalItems")
-        binding.totalEstimatedPayable = bundle.getString("totalEstimatedPayable")
+        val displayMetrics = context?.resources?.displayMetrics
+        //contex.defaultDisplay.getMetrics(displayMetrics)
+        val displayWidth = displayMetrics?.widthPixels
 
+
+        //  binding.parentPaymentModeCouponAppliedBottomSheet.layoutParams.width = 294.toPx
+        if (displayWidth != null) {
+            binding.parentBottomSheet.layoutParams.height =  (displayWidth * 0.9f).toInt()
+        }
     }
 
-    private fun setEventListeners(){
+    private fun setEventListeners() {
         binding.imgClose.setOnClickListener { closeBottomSheet() }
     }
 
