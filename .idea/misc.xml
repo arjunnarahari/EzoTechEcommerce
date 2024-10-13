@@ -18,6 +18,7 @@
         <entry key="app/src/main/res/layout/cart_list_item.xml" value="0.19610507246376813" />
         <entry key="app/src/main/res/layout/filter_bottomsheet.xml" value="0.25" />
         <entry key="app/src/main/res/layout/filter_list_item.xml" value="0.19610507246376813" />
+        <entry key="app/src/main/res/layout/payment_method_bottomsheet.xml" value="0.25" />
         <entry key="app/src/main/res/layout/product_list_item.xml" value="0.33" />
       </map>
     </option>

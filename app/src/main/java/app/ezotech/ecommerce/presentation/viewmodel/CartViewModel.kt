@@ -39,8 +39,12 @@ class CartViewModel @Inject constructor(
     private val productListMutableLiveData = MutableLiveData<List<ProductItem?>>()
     val productListLiveData: LiveData<List<ProductItem?>> get() = productListMutableLiveData
 
+    private val paymentMethodSelectedMutableLiveData = MutableLiveData<String>("")
+    val paymentMethodSelectedLiveData: LiveData<String?> get() = paymentMethodSelectedMutableLiveData
+
     init{
         getCartCountAndTotalValue()
+        paymentMethodSelectedMutableLiveData.postValue("COD")
     }
 
     /**
@@ -128,6 +132,14 @@ class CartViewModel @Inject constructor(
     fun clearItemsFromCart(){
         viewModelScope.launch(Dispatchers.IO) {
             localDbUseCase.clearItemsFromCart()
+        }
+    }
+
+    fun setPaymentMethod(selectedPaymentMethod : String){
+        if(selectedPaymentMethod=="Online"){
+            paymentMethodSelectedMutableLiveData.postValue("Online")
+        }else{
+            paymentMethodSelectedMutableLiveData.postValue("COD")
         }
     }
 }

@@ -10,6 +10,9 @@
     <string name="apply">Apply</string>
     <string name="clear">Clear</string>
     <string name="view_bill"><u>View bill</u></string>
+    <string name="select_payment">Select payment method</string>
+    <string name="online">Online</string>
+    <string name="cod">Cash on delivery</string>
     <string name="bill_details">Bill details</string>
     <string name="total_items">Total items</string>
     <string name="estimated_payable">Estimated Payable</string>
@@ -17,6 +20,7 @@
     <string name="remove_product">Remove Product</string>
     <string name="no_results">No Results Found</string>
     <string name="checkout">Checkout</string>
+    <string name="place_order">Place order</string>
     <string name="are_you_sure_remove_product">Are you sure you want to remove product?</string>
     <string name="no_internet_msg">Please check your internet connection and try again later</string>
     <string name="product_added">Product added</string>

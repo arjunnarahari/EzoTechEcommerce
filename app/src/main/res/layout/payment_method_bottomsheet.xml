@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parentBottomSheet"
+        android:layout_width="match_parent"
+        app:behavior_hideable="false"
+        app:behavior_peekHeight="32dp"
+        android:paddingBottom="20dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        android:background="@drawable/bg_bottomsheet_top_left_right_rounded"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clTopHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:elevation="10dp"
+            android:paddingVertical="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/imgClose"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/tvBillDetailsLabel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/tvBillDetailsLabel"
+                app:srcCompat="@drawable/ic_close"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvBillDetailsLabel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/select_payment"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <RadioButton
+            android:id="@+id/radioOnline"
+            app:layout_constraintTop_toBottomOf="@+id/clTopHeader"
+            android:layout_width="match_parent"
+            android:textSize="20sp"
+            android:layout_marginStart="20dp"
+            android:text="@string/online"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content"/>
+
+        <RadioButton
+            android:id="@+id/radioCod"
+            app:layout_constraintTop_toBottomOf="@+id/radioOnline"
+            android:layout_width="match_parent"
+            android:textSize="20sp"
+            android:layout_marginStart="20dp"
+            android:text="@string/cod"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnApply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/btn_bg"
+            android:text="@string/apply"
+            android:textAllCaps="false"
+            android:textColor="@color/color_blue"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioCod" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
+
+

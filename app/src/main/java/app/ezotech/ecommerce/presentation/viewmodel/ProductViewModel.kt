@@ -55,6 +55,8 @@ class ProductViewModel @Inject constructor(
     private val localCategorySelectedMutableLiveData = MutableLiveData<String>("")
     val localCategorySelectedLiveData: LiveData<String?> get() = localCategorySelectedMutableLiveData
 
+
+
     init{
         getCartCountAndTotalValue()
     }
