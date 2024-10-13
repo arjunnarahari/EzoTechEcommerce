@@ -18,6 +18,12 @@ Features Present
 9. Select payment method before placing order
 10. Place order
 
+Future Developments
+
+1. My Orders screen to show placed orders
+2. Add Address functionality to deliver the order to the address
+3. Add user, can have multiple users
+
 Modular approch followed
 It is heavily implemented by following standard clean architecture principle.
 Offline capability.
