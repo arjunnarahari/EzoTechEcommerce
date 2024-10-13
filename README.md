@@ -15,7 +15,8 @@ Features Present
 6. View bill in cart
 7. Get added product list from local database
 8. Modify product quantity once added from anywhere
-9. Place order
+9. Select payment method before placing order
+10. Place order
 
 Modular approch followed
 It is heavily implemented by following standard clean architecture principle.
