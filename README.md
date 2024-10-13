@@ -1,8 +1,8 @@
-This is a Ecommerce app that uses Clean Architecture & Components
+This is an Ecommerce app that uses Clean Architecture & Components
 
 - About
 
-It simply loads Product list from https://fakestoreapi.com/ and stores it in persistence storage (i.e. Room Database). Added product list in cart will be always loaded 
+It simply loads Product list from https://fakestoreapi.com/. Provides filter to view products based on category type. Added product list in cart will be always loaded 
 from local database. Remote data (from API) and Local data is always synchronized.
 
 Features Present 
